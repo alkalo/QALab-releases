@@ -5,54 +5,38 @@
 
 **Public download page** for the QALab Windows desktop app.
 
-This repository contains **installers only** — no source code. The main project is maintained in a private repository; releases are published here so anyone can download and receive automatic updates without repository access.
+This repository contains **installers only** — no source code. Releases are published here so anyone can download and receive automatic updates without repository access.
 
 ---
 
 ## What is QALab?
 
-**QALab** is a **local AI suite for QA departments** in casual and mobile games. Visual analysis, bug triage, LQA, release advisor, Jira KPIs, and executive reports — **100% local** with [Ollama](https://ollama.com), no paid cloud APIs.
+**QALab v2** is a **local-first AI suite for game QA teams**. Everything runs on your PC with [Ollama](https://ollama.com) — no cloud AI, no subscription, no data leaving your machine.
 
-Built for studios like **Scopely, Socialpoint, Rovio, King, Voodoo, Gameloft**.
+Two modules share one stack:
 
-| Capability | Description |
-|------------|-------------|
-| **Visual analysis** | Capture a screenshot → AI drafts a bug report with a vision model (VLM) |
-| **Bug review** | Human validation, AI triage, duplicate detection, batch export to Jira / Linear |
-| **LQA** | Localization QA on screenshots |
-| **KPIs & Insights** | Configurable Jira metrics, dashboards, AI analysis of bug patterns |
-| **Release Advisor** | AI go / no-go recommendation from draft bugs and Jira KPIs |
-| **QA Assistant** | Natural-language questions about local bugs and metrics |
-| **Weekly report** | Downloadable executive Markdown for leadership |
+| Module | What you get |
+|--------|----------------|
+| **QA Tools** | Six AI workflows: Metrics, Video Analysis, GDD Studio, Test Generator, Test Review, Ticket Auditor |
+| **Arion Agent** | Autonomous mobile testing — device runs, live HUD, suite runner, free exploration, bug export |
 
-Everything runs on your machine. Data stays local in `%APPDATA%\QALab\`.
+Plus workspace tools: **Bug Reports**, **Knowledge Base**, **Insights/KPIs**, **Release Advisor**, and **Settings** (Ollama, Jira, TestRail, ADB, builds).
+
+Built for studios that need **privacy, speed, and a full QA department in one installer**.
 
 ---
 
-## Typical QA workflow
+## Typical workflow
 
 ```
-1. Visual analysis or LQA  →  draft bug
-2. Bug review              →  validate / AI triage / detect duplicates
-3. Export to Jira          →  OAuth in Insights → Sources
-4. Release Advisor         →  weekly executive report for leadership
+1. Connect Jira / TestRail (Settings or Insights → Sources)
+2. QA Tools — metrics, video UX, GDD, tests, ticket audit
+3. Arion — run a suite or free test on a device; watch the live HUD
+4. Bug review → validate → export to Jira / Linear
+5. Release Advisor + weekly report for leadership
 ```
 
----
-
-## Tools in the app
-
-| Tool | What it does |
-|------|--------------|
-| **QA Assistant** | Ask questions about bugs, KPIs, and test data |
-| **Visual analysis** | Capture + VLM → structured bug draft |
-| **Bug review** | Validate, batch triage, export to Jira |
-| **LQA** | Localization checks on screenshots |
-| **Release Advisor** | AI go / no-go for a build |
-| **Weekly report** | Executive Markdown download |
-| **KPIs & Metrics** | Jira dashboards, OAuth sources, AI insights |
-
-Navigation: **Cmd/Ctrl-K** command palette · light/dark theme · AI telemetry in Settings.
+Navigation: **Ctrl+K** command palette · light Ibdara theme · AI status in Settings.
 
 ---
 
@@ -62,10 +46,10 @@ Navigation: **Cmd/Ctrl-K** command palette · light/dark theme · AI telemetry i
 
 | File | Use |
 |------|-----|
-| [**QALab-*-Setup.exe**](https://github.com/alkalo/QALab-releases/releases/latest) | NSIS installer — **recommended** (desktop shortcut, updater) |
-| [**QALab-*-Portable.exe**](https://github.com/alkalo/QALab-releases/releases/latest) | Portable — no install, run from any folder |
+| [**QALab-*-Setup.exe**](https://github.com/alkalo/QALab-releases/releases/latest) | NSIS installer — **recommended** (shortcuts, auto-update via `latest.yml`) |
+| [**QALab-*-Portable.exe**](https://github.com/alkalo/QALab-releases/releases/latest) | Portable — no install; run from any folder; updates swap the `.exe` in place |
 
-On the [Releases](https://github.com/alkalo/QALab-releases/releases/latest) page, download the **Setup** or **Portable** asset for the current version.
+On the [Releases](https://github.com/alkalo/QALab-releases/releases/latest) page, download **Setup** or **Portable** for the current version.
 
 ---
 
@@ -73,14 +57,13 @@ On the [Releases](https://github.com/alkalo/QALab-releases/releases/latest) page
 
 1. Download **Setup** or **Portable** from [Releases](https://github.com/alkalo/QALab-releases/releases/latest).
 2. Run the `.exe`. If Windows SmartScreen warns (unsigned installer), click **More info → Run anyway**.
-3. **First launch** (5–15 min): the app installs Ollama if needed and downloads AI models (~4–8 GB).
-4. The QALab dashboard opens in a native window — API and web UI are embedded; no Docker or Node required.
+3. **First launch** (5–15 min): installs Ollama if needed and downloads AI models (~4–8 GB). Splash shows progress.
+4. The dashboard opens in a native window — API + web UI embedded; no Docker or separate Node/Python install.
 
 | Item | Location |
 |------|----------|
-| User data | `%APPDATA%\QALab\` (SQLite, sessions, templates) |
-| Config | `%APPDATA%\QALab\.env` (auto-created) |
-| Logs | `%APPDATA%\QALab\logs\` |
+| User data | `%APPDATA%\QALab\` (SQLite, sessions, templates, `.env`) |
+| Logs | `%APPDATA%\QALab\launcher.log` |
 | System tray | Open panel, Ollama status, **Check for updates** |
 
 ---
@@ -90,35 +73,23 @@ On the [Releases](https://github.com/alkalo/QALab-releases/releases/latest) page
 | Component | Minimum |
 |-----------|---------|
 | OS | Windows 10/11, 64-bit |
-| RAM | 8 GB (16 GB recommended for VLM) |
+| RAM | 8 GB (16 GB recommended for vision models) |
 | Disk | ~10 GB free (app + Ollama models) |
 | Ollama | Installed automatically on first run if missing |
 | Network | First run only (model download); then works offline |
 
-**Optional:** Jira / Linear integration via OAuth (Insights → Sources).
+**Optional:** Jira / Linear / TestRail via OAuth or API tokens in Settings.
 
 ---
 
 ## Updates
 
-The desktop app checks **this repository** for new versions:
+| Install type | Mechanism |
+|--------------|-----------|
+| **Setup (NSIS)** | Tray → Check for updates; uses `latest.yml` from this repo |
+| **Portable** | Tray → Check for updates; downloads new `QALab-*-Portable.exe` next to your copy |
 
-- System tray → **Check for updates…**
-- Or download the latest `.exe` manually from [Releases](https://github.com/alkalo/QALab-releases/releases/latest)
-
-Installers from **v0.2.18+** use this public repo for auto-update. Older builds may need a one-time manual download.
-
----
-
-## Integrations
-
-| Service | How to connect |
-|---------|----------------|
-| **Jira** | KPIs & Metrics → Sources → Connect Atlassian (OAuth) |
-| **Linear** | Configure in Insights sources |
-| **TestRail / APIs** | QA Assistant and Insights use local API tokens |
-
-All credentials are stored locally in `%APPDATA%\QALab\`.
+Both install types use **this repository** only (`alkalo/QALab-releases`).
 
 ---
 
@@ -126,12 +97,12 @@ All credentials are stored locally in `%APPDATA%\QALab\`.
 
 | Layer | Technology |
 |-------|------------|
-| AI | Qwen2.5-VL / Qwen2.5 via **Ollama** |
+| AI | Qwen2.5-VL / Qwen2.5 via **Ollama** (hardware-aware model picker) |
 | Backend | FastAPI + SQLite |
 | Frontend | Next.js + TypeScript |
 | Desktop | Electron (Windows) |
 
-No data is sent to external AI APIs during normal use.
+No screenshots, prompts, or bug data are sent to external AI APIs during normal use.
 
 ---
 
@@ -139,19 +110,23 @@ No data is sent to external AI APIs during normal use.
 
 ### SmartScreen: "Windows protected your PC"
 
-The installer is not Authenticode-signed (common for open-source tools). Click **More info → Run anyway**. Verify downloads come from `github.com/alkalo/QALab-releases`.
+The installer is not Authenticode-signed. Click **More info → Run anyway**. Verify downloads from `github.com/alkalo/QALab-releases`.
+
+### Error: `resolveModels is not a function`
+
+Upgrade to **v0.4.1+** from [Releases](https://github.com/alkalo/QALab-releases/releases/latest).
 
 ### First run is slow
 
-Ollama and vision models are downloading (~4–8 GB). Check the splash screen log; ensure stable internet.
+Ollama and vision models are downloading. Check the splash log; ensure stable internet.
 
-### Error checking for updates (404)
+### Portable update fails
 
-Download the latest version manually from [Releases](https://github.com/alkalo/QALab-releases/releases/latest), or upgrade to **v0.2.18+**.
+Ensure the portable `.exe` is not on a read-only drive. Use **v0.4.1+** for correct portable update paths.
 
 ### Jira / OAuth fails
 
-Restart QALab. If it persists, delete `%APPDATA%\QALab\.env` (regenerates on start; you will need to reconnect OAuth).
+Restart QALab. If it persists, review `%APPDATA%\QALab\.env` (reconnect OAuth in Settings).
 
 ---
 
@@ -162,8 +137,6 @@ Restart QALab. If it persists, delete `%APPDATA%\QALab\.env` (regenerates on sta
 | **QALab-releases** (this repo) | Public | Windows installers, `latest.yml`, release notes |
 | **QALab** (main project) | Private | Source code, CI, development |
 
-Questions about source access or contributions: contact the maintainer.
-
 ---
 
 ## License
@@ -172,4 +145,4 @@ MIT — personal and commercial use of the distributed binaries, subject to thir
 
 ---
 
-<p align="center"><sub>QALab — Local AI for game QA teams</sub></p>
+<p align="center"><sub>QALab v2 — Local AI for game QA teams</sub></p>
