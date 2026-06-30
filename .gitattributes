@@ -1,0 +1,2 @@
+# This repo only hosts installers. Hide files from GitHub auto-generated Source code archives.
+* export-ignore
