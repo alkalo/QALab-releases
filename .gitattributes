@@ -1,2 +1,3 @@
-# This repo only hosts installers. Hide files from GitHub auto-generated Source code archives.
+# This repo only hosts installers. Exclude all files from GitHub auto-generated
+# "Source code (zip/tar.gz)" archives on release pages.
 * export-ignore
