@@ -46,7 +46,7 @@ Navigation: **Ctrl+K** command palette · light Ibdara theme · AI status in Set
 
 | File | Use |
 |------|-----|
-| [**QALab-*-Setup.exe**](https://github.com/alkalo/QALab-releases/releases/latest) | NSIS installer — **recommended** (shortcuts, auto-update via `latest.yml`) |
+| [**QALab-*-Setup.exe**](https://github.com/alkalo/QALab-releases/releases/latest) | NSIS installer — **recommended** (shortcuts, in-app auto-update via GitHub API) |
 | [**QALab-*-Portable.exe**](https://github.com/alkalo/QALab-releases/releases/latest) | Portable — no install; run from any folder; updates swap the `.exe` in place |
 
 On the [Releases](https://github.com/alkalo/QALab-releases/releases/latest) page, download **Setup** or **Portable** for the current version.
@@ -86,10 +86,12 @@ On the [Releases](https://github.com/alkalo/QALab-releases/releases/latest) page
 
 | Install type | Mechanism |
 |--------------|-----------|
-| **Setup (NSIS)** | Tray → Check for updates; uses `latest.yml` from this repo |
-| **Portable** | Tray → Check for updates; downloads new `QALab-*-Portable.exe` next to your copy |
+| **Setup (NSIS)** | Tray or Settings → Check for updates; GitHub REST API + optional SHA256 manifest |
+| **Portable** | Same updater; downloads new `QALab-*-Portable.exe` and swaps in place |
 
-Both install types use **this repository** only (`alkalo/QALab-releases`).
+Both install types use **this repository** only (`alkalo/QALab-releases`). The packaged app does **not** consume `latest.yml` at runtime (electron-builder may still publish it as an optional artifact).
+
+Enable **Install updates automatically on startup** in Settings to download and install new releases without prompting at launch.
 
 ---
 
